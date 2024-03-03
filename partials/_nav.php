@@ -22,12 +22,26 @@
             <div class="mid">
                 <ul>
                     <li><a href="#">Home</a></li>
-                    <li><a href="#">Login</a></li>
-                </ul>
+                    <?php 
+                    if(!$loggedin){
+                    echo'<li><a href="sign-in.php">Login</a></li>';
+                    }
+                    
+               echo' </ul>
             </div>
-            <div class="right">
-                <h2><a href="">Get Started</a></h2>
-            </div>
+            <div class="right">';
+            if(!$loggedin){
+                echo'<h2><a href="sign-up.php">Get Started</a></h2>';
+            }else{
+                $sql = "SELECT * from users where Email = '".$_SESSION['email']."'";
+                $result = mysqli_query($conn,$sql);
+                $row = mysqli_fetch_assoc($result);
+                $name = $row['Name'];
+
+                echo'<h2><a href="profile.php">'.$name.'</a></h2>';
+            }
+
+           echo' </div> ';?>
            
         </nav>
     </header>

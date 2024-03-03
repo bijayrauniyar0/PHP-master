@@ -12,7 +12,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
 
     if($password == $cpassword){
         $hash = password_hash($password, PASSWORD_DEFAULT);
-        $sql = "INSERT into `user` (`name`, `phone`, `email`, `gender`, `pw`) VALUES ('".$name."','".$phone."','".$email."','".$gender."','".$hash."') ";
+        $sql = "INSERT into `users` (`name`, `phone`, `email`, `gender`, `password`) VALUES ('".$name."','".$phone."','".$email."','".$gender."','".$hash."') ";
         $result = mysqli_query($conn,$sql);
         if($result){
             echo'
@@ -91,7 +91,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
                      <button type="submit">Sign Up</button>
                      </span>
                 </form>
-                <div class="sign-txt">Already a member? <a href="guest-login.php">Login here</a></div>
+                <div class="sign-txt">Already a member? <a href="sign-in.php">Login here</a></div>
             </div>
         </div>
     </section>

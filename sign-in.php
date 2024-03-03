@@ -1,21 +1,27 @@
 <?php session_start(); 
-include 'partials/_dbconnect.php' ;
+include 'partials/_dbconnect.php';
+$loggedin = false;
+if(isset($_SESSION['loggedin']) || $_SESSION['loggedin']==true){
+    $loggedin = true;
+    header("location:index.php");
 
+}
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
     $email = $_POST['email'];
     $password = $_POST['password'];
 
-    $sql  = "SELECT * from `user` where email = '$email' ";
+    $sql  = "SELECT * from `users` where email = '$email' ";
     $result = mysqli_query($conn, $sql);
     if(mysqli_num_rows($result) > 0){
         while($row = mysqli_fetch_assoc($result)){
-       if(password_verify($password, $row["pw"])){
+       if(password_verify($password, $row["password"])){
         echo'
         <script>
         alert("Login Successful")
         </script>';
 
         $_SESSION['email'] = $email;
+        $_SESSION['loggedin'] = true;
         header("location:welcome.php");
         exit;
        }
@@ -44,7 +50,7 @@ if($_SERVER['REQUEST_METHOD'] == 'POST'){
     <?php include 'partials/_nav.php' ?>
 
     <div class="in-form-container">
-        <h2>Sign Up</h2>
+        <h2>Sign In</h2>
         <form action="sign-in.php" method="POST">
             <div class="form-group">
                 <label for="email">Email</label>
