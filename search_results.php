@@ -2,6 +2,8 @@
 session_start();
 
 include 'partials/_dbconnect.php';
+
+// getting search query
 $query = isset($_GET['query'])? $_GET['query'] : '';
 $searchQuery = $query;
 
